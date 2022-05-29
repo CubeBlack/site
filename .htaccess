@@ -1,0 +1,5 @@
+Options +FollowSymlinks
+RewriteEngine on
+#GET /g2/sgp/Projetos HTTP/1.1
+RewriteCond  %{THE_REQUEST} "\ (.*)\ "
+RewriteRule . "index.php"

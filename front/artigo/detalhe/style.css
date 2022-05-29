@@ -1,0 +1,17 @@
+
+.conteudo > *{
+    margin: 10px;
+}
+
+article .texto{
+    white-space: pre-wrap;
+}
+
+article .texto::first-letter {
+    font-size: 7rem;
+    font-weight: bold;
+    float: left;
+    margin: 2px 5px;
+    color: var(--color-c);
+    font-family: 'deutsch_gothic';
+}

@@ -1,0 +1,40 @@
+<form action="" method="POST">
+    <!--h2>Editar Artigo</h2-->
+    <div class="msg">{{msg}}</div>
+    
+    <div class="form_campo">
+        <label for="">Titulo</label>
+        <input type="text" name="titulo" value="{{titulo}}">
+    </div>
+    
+    <div class="form_campo"> 
+        <label for="">Codigo e Label</label>
+        <span>
+            {{codigo}} - 
+            {{label}}
+        </span>
+    </div>
+    
+    <div class="form_campo">
+        <label for="">Status:</label>
+        <select name="status" id="" value="{{status}}">
+            <option value="RASCUNHO" {{status_racunho_selected}}>Rascunho</option>
+            <option value="PUBLICO"  {{status_publico_selected}}>Publico </option>
+            <option value="OCULTO"   {{status_oculto_selected}}> Oculto  </option>
+        </select>
+    </div>
+    
+    <div >
+        <button type="submit">Salvar</button>
+    </div>
+    
+    <div>
+        Texto<br>
+        <textarea name="texto" >{{texto}}</textarea>
+    </div>
+
+    <div>
+        <button type="submit">Salvar</button>
+    </div>
+
+</form>

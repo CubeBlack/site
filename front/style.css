@@ -1,0 +1,193 @@
+*{
+	font-family: 'Times New Roman', Times, serif;
+	font-size: 15px;
+	color:var(--color-a);
+}
+
+body{
+	/* background-color: var(--color-b); */
+	margin: 0;
+	padding: 0;
+	margin-top: 70px;
+}
+
+body > header{
+    background-color: var(--color-e);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+	border-bottom: 1px solid var(--color-c);
+
+	z-index: 1000;
+}
+
+body > header h1{
+    display: inline-block;
+    padding: 0;
+	margin: 5px 10px;
+	padding-right: 10px;
+    border-width: 0 3px 0 0;
+    border-color: var(--color-d);
+    border-style: solid;
+}
+
+body > header p{
+    display: inline-block;
+    padding: 0;
+	margin: 5px 10px;
+    font-size: 16px;
+    color: var(--color-a);
+
+}
+
+nav {
+	
+    
+    
+	background-color: var(--color-e);
+}
+
+body > header nav ul{
+    list-style: none;
+	
+    margin: 5px;
+    padding: 0;
+}
+
+header nav li{
+	display: inline-block;
+    padding-right: 4px;
+    padding: 0;
+}
+
+header h1{
+	color: var(--color-c);
+	font-size: 20px;
+	display: block;
+}
+
+h2{
+	color: var(--color-d);
+	font-size: 22px;
+	display: block;
+	border-bottom: 2px solid var(--color-d);
+}
+
+h3{
+	color: var(--color-a);
+	font-size: 20px;
+	display: block;
+	border-bottom: 1px solid var(--color-a);
+}
+
+h4, h5, h6{
+	color: var(--color-c);
+	display: block;
+	border-bottom: 1px solid var(--color-c);
+}
+
+form{
+	background-color: var(--color-e);
+	margin: 10px;
+}
+
+form > *{
+	margin: 10px;
+}
+
+form label{
+	margin: 10;
+}
+
+form button{
+	margin: 10;
+}
+
+form input{
+	margin: 10px;
+}
+
+.form_campo{
+	display: grid;
+	/*border:1px solid gray;*/
+	margin: 10px;
+}
+
+.form_acao {
+	border-top: 1px solid var(--color-a);
+	display: block;
+}
+
+
+a{
+	text-decoration: none;
+	color: var(--color-d);
+}
+
+
+a::after{
+	content: ' ]'/*&#169;*/;
+}
+
+
+a::before{
+    content: '[ '/*&#169;*/;
+}
+
+
+a.green{
+    color: green;
+}
+
+
+a.purple{
+    color: purple;
+}
+
+
+
+a:hover{
+    color: red;
+}
+
+table{
+	border:1px solid grey;
+	border-width: 1px 1px 0 1px;
+}
+
+th{
+	margin: 0;
+}
+
+th{
+	border-bottom:1px solid grey;
+	margin: 0;
+}
+
+td{
+	border-bottom:1px solid grey;
+	margin: 0;
+	padding: 3px;
+}
+
+.conteudo{
+	display: block;
+	overflow: auto;
+	position: relative;
+	min-height: calc(100vh - 150px);
+	max-width: 900px;
+	margin: auto;
+	margin-bottom: 10px;
+}
+
+.footer{
+	position: relative;
+	background-color: var(--color-e);
+	padding: 10px;
+	text-align: center;
+	border-top: 1px solid var(--color-c);
+}
+
+
+
