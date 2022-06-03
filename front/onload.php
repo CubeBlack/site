@@ -37,6 +37,7 @@ $menu = [
 //Caso eteja logado
 if($global['sessao'] <> false){
    $menu[] = ['label'=>'Novo artigo','url'=>'artigo/form'];
+   $menu[] = ['label'=>'Musicas','url'=>'musica/'];
    $menu[] = ['label'=>'sair','url'=>'sair'];
 }
 
