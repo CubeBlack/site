@@ -171,6 +171,17 @@ td{
 	padding: 3px;
 }
 
+.lista{
+	display:flex;
+	flex-wrap: wrap;
+	margin: 5px;
+}
+
+.lista .item{
+	margin: 5px;
+	border: 1px solid gray;
+}
+
 .conteudo{
 	display: block;
 	overflow: auto;

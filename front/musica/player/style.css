@@ -1,0 +1,55 @@
+.player{
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    background-color: rgb(red, green, blue);
+    border-top:1px solid gray
+}
+
+.player audio{
+    display: none;
+}
+
+.controles{
+    margin-bottom: 7px;
+}
+
+.controles button{
+    display: inline-block;
+    position: relative;
+    background-color: lightgray;
+    text-align: center;
+    padding: 3px;
+    margin: 2px;
+    border: 1px solid grey;
+    /*width: 55px;*/
+    cursor: pointer;
+}
+
+
+.player .executar:hover, .player .pausar:hover,.player .parar:hover,.player  .repetir:hover{
+    background-color: aquamarine;
+    
+}
+
+.player .musica{
+    margin:5px;
+}
+
+.player .progresso{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: lightgray;
+    width: 100vw;
+    height: 5px;
+}
+
+.player .progresso .bar{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 0;
+    width: 80%;
+    background-color: blue;
+}

@@ -1,0 +1,39 @@
+<div>
+    <div>
+        <button>Navegar</button>
+        <button>Playlist</button>
+    </div>
+
+    <div class="conteudo">
+        ...
+    </div>
+
+    <div class="player">
+        <div class="musica">
+            Nome da musica
+        </div>
+
+        <div class="controles">
+            <button onclick="player.playpause();">|>||</button>
+            <button onclick="player.anterior();"><|<|</button>
+            <button onclick="player.parar();">[ ]</button>
+            <button onclick="player.proximo();">|>|></button>
+
+            <button onclick="player.repetir();">Repetir</button>
+            
+    
+        </div>
+       
+
+        <div class="progresso">
+            <div class="bar"></div>
+        </div>
+
+        <audio controls>
+            <source src="{{SYS_URL}}/resources//file/Ohne_Dich.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio> 
+
+
+    </div>
+</div>

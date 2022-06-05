@@ -14,6 +14,8 @@ if(isset($_SESSION[SESSAO_CHAVE])){
 $data['conteudo'] = View::byNo(0,'./view:landing', './view:', './view:404');
 
 
+
+
 //Tema
 $data['style_tema'] = "
 <style>
