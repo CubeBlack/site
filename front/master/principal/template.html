@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DL | {{pagina_titulo}}</title>
+	<script>
+		var SYS_URL = "{{SYS_URL}}" ;
+	</script>
+    {{style_tema}}
+    {{head}}
+</head>
+<body>
+	<header class="header">
+		<h1>DL</h1>
+		<p>{{pagina_titulo}}</p>
+		<nav>
+			<ul>
+				{{nav_itens}}
+			</ul>
+		</nav>
+	</header>
+	
+
+	<div class="conteudo">
+		{{conteudo}}
+	</div>
+
+    <footer class="footer">
+        Todos os direitos reservados | <A href="{{SYS_URL}}/adm">Adm</A>
+    </footer>
+	
+	{{foot}}
+</body>
+</html>

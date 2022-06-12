@@ -1,10 +1,7 @@
-<div>
-    <div>
-        <button>Navegar</button>
-        <button>Playlist</button>
-    </div>
 
-    <div class="conteudo">
+
+
+    <div class="embed">
         ...
     </div>
 
@@ -14,14 +11,13 @@
         </div>
 
         <div class="controles">
-            <button onclick="player.playpause();">|>||</button>
-            <button onclick="player.anterior();"><|<|</button>
-            <button onclick="player.parar();">[ ]</button>
-            <button onclick="player.proximo();">|>|></button>
+            <button onclick="player.playpause();">&#x25B6;</button>
+            <button onclick="player.anterior();">&#x25C0;&#x25C0;</button>
+            <button onclick="player.parar();">&block;</button>
+            <button onclick="player.proximo();">&#x25B6;&#x25B6;</button>
 
-            <button onclick="player.repetir();">Repetir</button>
             
-    
+   
         </div>
        
 
@@ -34,6 +30,10 @@
             Your browser does not support the audio tag.
         </audio> 
 
-
     </div>
-</div>
+
+    <div class="menulocal">
+        <button onclick="embad('musica/navegacao');">Navegar</button>
+        <button onclick="embad('musica/playlist');">Playlist</button>
+        <button onclick="embad('musica/livraria');">Livraria</button>
+    </div>

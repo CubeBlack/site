@@ -41,11 +41,14 @@ class Musicalivraria {
 
     static function verificar(&$data){
         Core::dataInit($data);
-        
+        //Limpar playlist
+        $dbh = Core::conect();  
+        $sth = $dbh->prepare("TRUNCATE musicas_playlist");
+        $sth->execute();
+
         //Limpar livraria
         $dbh = Core::conect();  
-        $sth = $dbh->prepare("TRUNCATE musicas");
-
+        $sth = $dbh->prepare("DELETE FROM musicas WHERE true");
         $sth->execute();
         
         //Verificar e adicionar musicas

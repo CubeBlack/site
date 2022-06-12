@@ -1,9 +1,10 @@
 <div class="item">
     <div class="local">{{local}}</div>
+    
     <div class="acoes">
-        <a href="">Execurar</a>
-        <a href="">Adicionar a playlist</a>
-        <a href="">Abrir</a>
+        <button onclick="navegacao.abrir('{{codigo}}');">&ldsh;</button>
+        <button onclick="player.playlistItemAdicionar('{{codigo}}');">&sung;++</button>
+        <button onclick="player.playlistCreateByItem('{{codigo}}');">&#x25B6;</button>
     </div>
     
 </div>

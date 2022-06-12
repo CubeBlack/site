@@ -10,46 +10,22 @@ if(isset($_SESSION[SESSAO_CHAVE])){
    $global['sessao'] = Sessao::detalhe($sessao_chave);
 }
 
-//Novo sistema de paginação
-$data['conteudo'] = View::byNo(0,'./view:landing', './view:', './view:404');
+//Escolher a pagina master
+//$data['master'] = View::byNo(0,'./view:master/principal', './view:master/', './view:404');
 
-
-
-
-//Tema
-$data['style_tema'] = "
-<style>
-
-:root {
-      --color-a:rgba(40,40,40);
-      --color-b:rgba(213,181,156);
-      --color-c:rgba(100,100,255);
-      --color-d:rgba(255,100,100);
-      --color-e:rgba(250,250,250);
-   }
-</style>
-";
-
-$menu = [
-   ['label'=>'Incio','url'=>''],
-   ['label'=>'Artigos','url'=>'artigo']
-];
-
-
-//Caso eteja logado
-if($global['sessao'] <> false){
-   $menu[] = ['label'=>'Novo artigo','url'=>'artigo/form'];
-   $menu[] = ['label'=>'Musicas','url'=>'musica/'];
-   $menu[] = ['label'=>'sair','url'=>'sair'];
+$master = (isset(SYS_REQUEST_PARTES[0]))?SYS_REQUEST_PARTES[0]:'';
+switch ($master) {
+   case 'embad':
+      $data['master'] = './view:master/embad';
+      break;
+   case 'dashboard':
+         $data['master'] = './view:master/dashboard';
+         break;
+   
+   default:
+      $data['master'] = './view:master/principal';
+      break;
 }
-
-$data['nav_itens'] = [
-   'tipo'=>Template::TIPO_LISTA,
-   'template'=>'nav_item',
-   'data'=>$menu
-];
-
-
 
 
 

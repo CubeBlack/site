@@ -39,138 +39,52 @@ class Musica {
         $data['result'] = true;
     }
 
-    static function adicionar(&$data){
-        //Validar parametros
-        Core::dataInit($data);
-        Core::parametroObrigatorio($data,'titulo');
-        Core::parametroObrigatorio($data,'status');
-        Core::parametroObrigatorio($data,'texto');
-        
-        if(!Core::temParametros($data)) return;
+    static function _sourcebycodigo(){
+        //Parametros
+        $codigo = isset($_REQUEST['codigo'])?$_REQUEST['codigo']:'';
+        //var_dump($codigo);
 
-        if($data['titulo'] == ''){
-            $data['msg'] = 'Titulo não pode ser vazio';
-            return;
+        if($codigo == ''){
+            die('Codigo invalido ou inexistente.');
         }
 
-        if($data['texto'] == ''){
-            $data['msg'] = 'Texto não pode ser vazio';
-            return;
-        }
-
-        //criar label
-        $data['label'] = preg_replace('/[\@\;\" "]+/', '_', $data['titulo']); // sem caractesres especiais
-        $data['label'] = strtolower($data['label']); //Tudo menusculo
-        //die($data['label']);
-
-        //Registrar 
+        //...
         $dbh = Core::conect();  
-        $sth = $dbh->prepare("INSERT artigo set
-            titulo = :titulo,
-            status = :status,
-            texto = :texto,
-            label = :label
-        ");
-        $sth->execute([
-            'titulo'=>$data['titulo'],
-            'status'=>$data['status'],
-            'texto'=>$data['texto'],
-            'label'=>$data['label']
-        ]);
-        
-        Core::bdError($sth, $data['local']);
-
-        $data['result'] = true;
-    }
-
-    static function detalhe(&$data){
-        Core::dataInit($data);
-        Core::parametroObrigatorio($data,'codigo');
-        
-        if(!Core::temParametros($data)) return;
-
-        $dbh = Core::conect();  
-        $sth = $dbh->prepare("
-            SELECT * 
-            FROM artigo
+        $sth = $dbh->prepare("SELECT * FROM musicas
             where codigo = :codigo
-        ");
-        $sth->execute(['codigo'=>$data['codigo']]);
-        
-        if($dbh->errorInfo()[0]!='00000'){
-            $data['msg'] = "Mysql erro({$dbh->errorInfo()[1]}): {$dbh->errorInfo()[2]}";
-            return $data;
-        }
-        Core::bdError($sth, $data['local']);
-        $result = $sth->fetchAll(PDO::FETCH_ASSOC);
-
-        $data['detalhe'] = $result[0];
-        $data['result'] = true;
-    }
-
-    static function atualizar(&$data){
-        Core::dataInit($data);
-        Core::parametroObrigatorio($data,'codigo');
-        Core::parametroObrigatorio($data,'titulo');
-        Core::parametroObrigatorio($data,'status');
-        Core::parametroObrigatorio($data,'texto');
-        
-        if(!Core::temParametros($data)) return;
-
-        $dbh = Core::conect();  
-        $sth = $dbh->prepare("UPDATE artigo SET
-            titulo = :titulo,
-            status = :status,
-            texto = :texto
-            where codigo = :codigo
-        ");
-        $sth->execute([
-            'codigo' => $data['codigo'],
-            'titulo' => $data['titulo'],
-            'status' => $data['status'],
-            'texto' => $data['texto']
-        ]);
-        
-        if($dbh->errorInfo()[0]!='00000'){
-            $data['msg'] = "Mysql erro({$dbh->errorInfo()[1]}): {$dbh->errorInfo()[2]}";
-            return $data;
-        }
-        Core::bdError($sth, $data['local']);
-        $data['msg']= 'Artigo atualizado';
-        $data['result'] = true;
-    }
-
-    static function detalheByLabel(&$data){
-        Core::dataInit($data);
-        Core::parametroObrigatorio($data,'label');
-        
-        if(!Core::temParametros($data)) return;
-
-        $dbh = Core::conect();  
-        $sth = $dbh->prepare("
-            SELECT 
-            *
-            from artigo
-            where label = :label
-            
             limit 1
         ");
-        $sth->execute(['label'=>$data['label']]);
-        
-        if($dbh->errorInfo()[0]!='00000'){
-            $data['msg'] = "Mysql erro({$dbh->errorInfo()[1]}): {$dbh->errorInfo()[2]}";
-            return $data;
-        }
-        Core::bdError($sth, $data['local']);
+        $sth->execute(['codigo'=>$codigo]);
         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+        //var_dump($result[0]);
 
-        if(empty($result)){
-            $data['msg'] = 'Artigo não encontrado';
-            return;
+        //$path = (isset($_REQUEST['path'])?$_REQUEST['path']:'');
+        $filepath = LIVRARIA_LOCAL . $result[0]['local']; 
+
+        //die($filepath);
+        
+        $total     = filesize($filepath);
+        $blocksize = (2 << 20); //2M chunks
+        $sent      = 0;
+        $handle    = fopen($filepath, "r");
+        
+        
+        //die('aqui');
+        
+        // Push headers that tell what kind of file is coming down the pike
+        header('Content-type: audio/mpeg');
+        //header('Content-Disposition: attachment; filename=source');
+        header('Content-length: '.$total * 1024);
+                       
+        // Now we need to loop through the file and echo out chunks of file data
+        // Dumping the whole file fails at > 30M!
+        
+        while($sent < $total){
+            echo fread($handle, $blocksize);
+            $sent += $blocksize;
         }
 
-        $data['detalhe'] = $result[0];
-        $data['result'] = true;
+        //die('...');
     }
 
     

@@ -1,7 +1,7 @@
 <?php
 
 $data['conteudo'] = View::byNo(
-    1,                       //no
+    2,                       //no
     './view:musica/player',         //padrão
     './view:musica/', //prefixo
     './view:404'             //se nao existir
