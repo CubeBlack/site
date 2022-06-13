@@ -2,7 +2,7 @@
 var player = document.querySelector('.player audio');
 
 //numero do item da plylist executando atualmente
-player.atual = 20;
+player.atual = 0;
 
 //Pegar a tag de conteudo
 player.conteudo = document.querySelector('.embed');
@@ -16,9 +16,10 @@ player.progresso_bar = document.querySelector('.player .progresso .bar');
 //Mostrar o progresso
 player.get_time = function(){
     //console.log(player.currentTime + '/' + player.duration);
-    let porcentagem = Math.round((player.currentTime / player.duration)*100);
+    let porcentagem = (player.currentTime / player.duration)*100;
+    //let porcentagem = Math.round((player.currentTime / player.duration)*100, -2);
     //console.log(porcentagem);
-    player.progresso_bar.style.width = porcentagem + 'vw';
+    player.progresso_bar.style.width = porcentagem.toFixed(2) + '%';
     if(player.paused){
         player.progresso_bar.style.backgroundColor = 'rgb(255,0,0)'
     }
@@ -29,6 +30,11 @@ player.get_time = function(){
 
 //Função do botão, para parar e executar
 player.playpause = function(){
+    if(player.atual == 0){
+        player.proximo();
+        return;
+    }
+
     if(player.paused){
         player.play();
     }else{
@@ -49,10 +55,12 @@ player.proximo = function(){
                 return;
             }
         
-            //console.log('player.proximo[msg]: ' + resp.msg);
+            player.musica_tag.innerHTML = resp.msg;
         }
     );
 }
+//Quando acabar, ir para o proximo
+player.onended = player.proximo;
 
 
 /**
@@ -68,7 +76,7 @@ player.proximo = function(){
                 return;
             }
         
-            //console.log('player.proximo[msg]: ' + resp.msg);
+            player.musica_tag.innerHTML = resp.msg;
         }
     );
 }
@@ -95,6 +103,15 @@ function embad(local){
 
 //pegar a musica atual
 player.setSourceAtual = function(){
+    //Tiver parado
+    if(player.atual == 0){
+        player.musica_tag.innerHTML = '';
+        player.pause();
+        player.currentTime = 0;
+        return;
+    }
+
+    //pegar detalhe do item da playlist
     reqRPCAdd(SYS_URL+'/rpc/musicaplaylist/itemdetalhe', 
         {'codigo':player.atual},
         function(resp){
@@ -121,33 +138,72 @@ player.playlistItemAdicionar = function(musica){
     );
 }
 
-//
+/**
+ * PLaylist 
+ ************************************************************/
 player.playlistItemRemover = function(item){
     reqRPCAdd(SYS_URL+'/rpc/musicaplaylist/itemremover', 
         {'item':item},
         function(resp){
             //notificar(resp.msg);
+            if(!resp.result){
+                return;
+            }
+
+            //notificar(resp.msg);
+            document.querySelector('.item.item'+resp.item).style.display = 'none';
         }
     );
 }
 
-//
-player.playlistItemExecutar = function(musica){
-    reqRPCAdd(SYS_URL+'/rpc/musicaplaylist/itemadicionar', 
-        {'musica':musica},
+//Executar item da play lista manualmente
+player.playlistItemExecutar = function(item){
+    player.atual = item;
+    player.setSourceAtual();
+}
+
+player.playlistAdicionarAleatorio = function (){
+    reqRPCAdd(SYS_URL+'/rpc/musicaplaylist/adicionaraleatorio', 
+        {},
         function(resp){
             //notificar(resp.msg);
+            if(!resp.result){
+                return;
+            }
+
+            //notificar(resp.msg);
+            embad('musica/playlist');
         }
     );
 }
 
+player.playlistLimpar = function (){
+    reqRPCAdd(SYS_URL+'/rpc/musicaplaylist/limpar', 
+        {},
+        function(resp){
+            //notificar(resp.msg);
+            if(!resp.result){
+                return;
+            }
+
+            //Recarregar playlist
+            embad('musica/playlist');
+            
+        }
+    );
+}
+
+
+/***
+ * 
+ */
 //Loop de verificaçõa
 player.frame = function(){
     player.get_time();
     
 
     //Proxima verificação
-    window.setTimeout(player.frame, 1000);
+    window.setTimeout(player.frame, 250);
 }
 
 //Inicialização

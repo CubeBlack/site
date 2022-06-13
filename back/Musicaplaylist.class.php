@@ -207,5 +207,73 @@ class Musicaplaylist {
 
         return;
     }
-    
+
+    static function _itemremover(&$data){
+        //Parametro
+        Core::parametroObrigatorio($data,'item');
+        if(!Core::temParametros($data)) return;
+
+        //Executar comando
+        $dbh = Core::conect();  
+        $sth = $dbh->prepare("DELETE from musicas_playlist
+            WHERE codigo = :codigo
+        ");
+
+        $sth->execute(['codigo'=>$data['item']]);
+
+        Core::bdError($sth, $data['local']);
+        
+        $data['result'] = true;
+        $data['msg'] = 'Item Removido';
+
+        return;
+    }
+
+    static function _adicionaraleatorio(&$data){
+        //Parametro
+        //Core::parametroObrigatorio($data,'item');
+        //if(!Core::temParametros($data)) return;
+
+        //Limpar playlist
+        $dbh = Core::conect();  
+        $sth = $dbh->prepare("TRUNCATE musicas_playlist");
+        $sth->execute();
+        Core::bdError($sth, $data['local']);
+
+        //Adicionar musicas aleatorio limitadas a 50 itens
+        $dbh = Core::conect();  
+        $sth = $dbh->prepare("INSERT into musicas_playlist
+                (musica)
+            select codigo
+            from musicas
+            order by  RAND()
+            limit 50
+        ;");
+
+        $sth->execute();
+
+        Core::bdError($sth, $data['local']);
+        
+        $data['result'] = true;
+        $data['msg'] = 'Lista criada';
+
+        return;
+    }
+
+    static function _limpar(&$data){
+
+        //Limpar playlist
+        $dbh = Core::conect();  
+        $sth = $dbh->prepare("TRUNCATE musicas_playlist");
+        $sth->execute();
+        Core::bdError($sth, $data['local']);
+
+
+        
+        $data['result'] = true;
+        $data['msg'] = 'Plylist limpa';
+
+        return;
+    }
+   
 }
