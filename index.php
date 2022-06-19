@@ -1,4 +1,4 @@
 <?php
 include_once 'config.php';
-include_once "C:\\xampp\\htdocs\\lord\\dinoengine\\autoload.php";
+include_once ENGINE_DIR . "autoload.php";
 Core::inicio();
